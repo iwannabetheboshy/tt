@@ -7,6 +7,4 @@ import scrapy
 
 
 class FarItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    is_captcha = scrapy.Field()
