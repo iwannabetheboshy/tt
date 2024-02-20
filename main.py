@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+import selenium.webdriver.firefox.service
 from fake_useragent import UserAgent
 import random
 from selenium.webdriver.common.by import By
@@ -13,9 +14,17 @@ import logging
 def selenium_wrapping():
     user_agent = UserAgent().random
     print(user_agent)
+
+    firefox_bin = "/snap/firefox/current/usr/lib/firefox/firefox"
+    firefoxdriver_bin = "/snap/firefox/current/usr/lib/firefox/geckodriver"
+
     options = webdriver.FirefoxOptions()
     options.add_argument(f'user-agent={user_agent}')
-    driver = webdriver.Firefox(options=options)
+    options.binary_location = firefox_bin
+
+    service = selenium.webdriver.firefox.service.Service(executable_path=firefoxdriver_bin)
+
+    driver = webdriver.Firefox(service=service, options=options)
 
     driver.set_window_position(random.randrange(0, 900, 350), random.randrange(0, 400, 200))
     driver.set_window_size(random.randrange(1024, 1490, 150), random.randrange(768, 1280, 150))
